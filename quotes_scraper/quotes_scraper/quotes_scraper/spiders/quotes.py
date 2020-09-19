@@ -29,3 +29,10 @@ class QuotesScraper(scrapy.Spider):
             'quotes': quotes,
             'top_ten_tags': tags
         }
+
+        next_page_button_link = response.xpath(
+            '//ul[@class="pager"]/li[@class="next"]/a/@href').get()
+
+        # code the case where we are in the last page
+        if next_page_button_link:
+            yield response.follow(next_page_button_link, callback=self.parse)
