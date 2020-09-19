@@ -9,3 +9,5 @@ XPath is mainly used in XLST, but can also be used as a much more powerful way o
 XPath uses a path notation (as in URLs) for navigating through the hierarchical structure of an XML document. It uses a non-XML syntax so that it can be used in URIs and XML attribute values.
 
 > Source: https://developer.mozilla.org/en-US/docs/Web/XPath
+
+> Cheat sheet: https://devhints.io/xpath
