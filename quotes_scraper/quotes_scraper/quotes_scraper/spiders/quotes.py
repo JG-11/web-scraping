@@ -11,8 +11,18 @@ class QuotesScraper(scrapy.Spider):
     # avoid typing explicitly the spider output storage file in the terminal
     custom_settings = {
         'FEED_URI': 'quotes.json',
-        'FEED_FORMAT': 'json'
+        'FEED_FORMAT': 'json',
+        'FEED_EXPORT_ENCODING': 'utf-8'
     }
+
+    """
+        Other custom settings options:
+        1. CONCURRENT_REQUESTS
+        2. MEMUSAGE_LIMIT_MB
+        3. MEMUSAGE_NOTIFY_MAIL
+        4. ROBOTSTXT_OBEY
+        5. USER_AGENT
+    """
 
     def parse_only_quotes(self, response, **kwargs):
         kwargs['quotes'].extend(response.xpath(
