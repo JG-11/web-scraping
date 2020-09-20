@@ -32,6 +32,12 @@ class QuotesScraper(scrapy.Spider):
         tags = response.xpath(
             '//div[contains(@class, "tags-box")]/span[@class="tag-item"]/a/text()').getall()
 
+        # scrapy crawl quotes -a top=5
+        top = getattr(self, 'top', None)
+        if top:
+            top = int(top)
+            tags = tags[:top]
+
         # Generator
         # scrapy crawl quotes -o quotes.json
         # scrapy crawl quotes -o quotes.csv
@@ -44,5 +50,5 @@ class QuotesScraper(scrapy.Spider):
             yield response.follow(next_page_button_link, callback=self.parse_only_quotes, cb_kwargs={
                 'title': title,
                 'quotes': quotes,
-                'top_ten_tags': tags
+                'top_tags': tags
             })

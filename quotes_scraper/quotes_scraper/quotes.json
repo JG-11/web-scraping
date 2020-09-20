@@ -103,17 +103,6 @@
       "\u201cA person's a person, no matter how small.\u201d",
       "\u201c... a mind needs books as a sword needs a whetstone, if it is to keep its edge.\u201d"
     ],
-    "top_ten_tags": [
-      "love",
-      "inspirational",
-      "life",
-      "humor",
-      "books",
-      "reading",
-      "friendship",
-      "friends",
-      "truth",
-      "simile"
-    ]
+    "top_tags": ["love", "inspirational", "life", "humor", "books"]
   }
 ]
