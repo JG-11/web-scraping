@@ -24,9 +24,19 @@ class QuotesScraper(scrapy.Spider):
         5. USER_AGENT
     """
 
+    def get_quotes_and_authors(self, response):
+        quotes = response.xpath(
+            '//span[@class="text" and @itemprop="text"]/text()').getall()
+        authors = response.xpath(
+            '//div[@class="quote"]/span[not(@class)]/small/text()').getall()
+
+        quotes_authors = [{'text': text, 'author': author}
+                          for text, author in zip(quotes, authors)]
+
+        return quotes_authors
+
     def parse_only_quotes(self, response, **kwargs):
-        kwargs['quotes'].extend(response.xpath(
-            '//span[@class="text" and @itemprop="text"]/text()').getall())
+        kwargs['quotes'].extend(self.get_quotes_and_authors(response))
 
         next_page_button_link = response.xpath(
             '//ul[@class="pager"]/li[@class="next"]/a/@href').get()
@@ -37,8 +47,7 @@ class QuotesScraper(scrapy.Spider):
 
     def parse(self, response):
         title = response.xpath('//h1/a/text()').get()
-        quotes = response.xpath(
-            '//span[@class="text" and @itemprop="text"]/text()').getall()
+        quotes = self.get_quotes_and_authors(response)
         tags = response.xpath(
             '//div[contains(@class, "tags-box")]/span[@class="tag-item"]/a/text()').getall()
 
